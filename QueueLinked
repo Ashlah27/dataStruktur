@@ -1,0 +1,90 @@
+// Node untuk data mahasiswa
+class Node {
+    String nim;
+    String nama;
+    Node next;
+
+    public Node(String nim, String nama) {
+        this.nim = nim;
+        this.nama = nama;
+        this.next = null;
+    }
+}
+
+// Queue pakai Linked List
+class QueueMahasiswa {
+    private Node front, rear;
+
+    public QueueMahasiswa() {
+        this.front = this.rear = null;
+    }
+
+    public boolean isEmpty() {
+        return front == null;
+    }
+
+    // Enqueue: tambah ke belakang
+    public void enqueue(String nim, String nama) {
+        Node newNode = new Node(nim, nama);
+
+        if (rear == null) {
+            front = rear = newNode;
+        } else {
+            rear.next = newNode;
+            rear = newNode;
+        }
+
+        System.out.println(nim + " " + nama + " masuk ke queue");
+    }
+
+    // Dequeue: hapus dari depan
+    public Node dequeue() {
+        if (isEmpty()) {
+            System.out.println("Queue kosong, tidak bisa dequeue");
+            return null;
+        }
+
+        Node temp = front;
+        front = front.next;
+
+        if (front == null) {
+            rear = null;
+        }
+
+        return temp;
+    }
+
+    // Display isi queue
+    public void display() {
+        if (isEmpty()) {
+            System.out.println("Queue kosong");
+            return;
+        }
+
+        System.out.println("Queue (front -> rear):");
+        Node temp = front;
+        while (temp != null) {
+            System.out.println(temp.nim + " " + temp.nama);
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+}
+
+// Main class
+public class Main {
+    public static void main(String[] args) {
+        QueueMahasiswa queue = new QueueMahasiswa();
+
+        queue.enqueue("1665100", "Dee");
+        queue.enqueue("1665200", "Deaja");
+        queue.enqueue("1665300", "Ami");
+        queue.enqueue("1665400", "Haya");
+        queue.enqueue("1665500", "Yati");
+
+        queue.display();
+
+        queue.dequeue(); // hapus Dee
+        queue.display();
+    }
+}
