@@ -1,0 +1,91 @@
+// Node untuk menyimpan record barang
+class Node {
+    int id;
+    String namaBarang;
+    Node next;
+
+    public Node(int id, String namaBarang) {
+        this.id = id;
+        this.namaBarang = namaBarang;
+        this.next = null;
+    }
+}
+
+// Stack menggunakan Linked List
+class StackBarang {
+    private Node top;
+
+    public StackBarang() {
+        this.top = null;
+    }
+
+    // Cek kosong
+    public boolean isEmpty() {
+        return top == null;
+    }
+
+    // Push barang
+    public void push(int id, String namaBarang) {
+        Node newNode = new Node(id, namaBarang);
+        newNode.next = top; // node baru menunjuk top lama
+        top = newNode;      // geser top ke node baru
+        System.out.println("(" + id + ", " + namaBarang + ") dimasukkan ke stack");
+    }
+
+    // Pop barang
+    public Node pop() {
+        if (isEmpty()) {
+            System.out.println("Stack kosong, tidak bisa pop");
+            return null;
+        }
+        Node popped = top;
+        top = top.next;
+        return popped;
+    }
+
+    // Lihat elemen paling atas
+    public Node peek() {
+        if (isEmpty()) {
+            System.out.println("Stack kosong");
+            return null;
+        }
+        return top;
+    }
+
+    // Tampilkan isi stack
+    public void display() {
+        if (isEmpty()) {
+            System.out.println("Stack kosong");
+            return;
+        }
+        System.out.println("Stack(top -> bottom):");
+        Node temp = top;
+        while (temp != null) {
+            System.out.println("(" + temp.id + ", " + temp.namaBarang + ")");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+}
+
+// Main class
+public class Main {
+    public static void main(String[] args) {
+        StackBarang stack = new StackBarang();
+
+        stack.push(1, "VCD");
+        stack.push(2, "TV");
+        stack.push(3, "Kulkas");
+        stack.push(4, "PC");
+
+        stack.display();
+
+        stack.push(5, "Rice cooker");
+        stack.push(6, "Dispenser");
+
+        stack.display();
+
+        stack.pop(); // hapus dispenser
+        stack.display();
+    }
+}
